@@ -1,4 +1,7 @@
 ---
+import "../styles/global.css";
+import "../styles/project-card-featured.css"
+import "../styles/project-card-dual.css"
 ---
 
 <html lang="en">
@@ -8,9 +11,71 @@
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>Emil Brunsnes</title>
 	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+
+<article class="project-card project-card--blue">
+	<h2 class="project-card__title">The Canvas</h2>
+
+	<div class="project-card__demo">
+		<!-- Add your project demo here -->
+	</div>
+
+	<div class="project-card__content">
+		<div class="project-card__copy">
+			<h3 class="project-card__question">
+			How might we bring students together on campus?
+			</h3>
+
+		<p class="project-card__description">
+			We investigated sources of student stress by observing, interviewing, and codesigning with students. We came up with the Canvas, a collaborative artwork. 
+		</p>
+  		</div>
+
+		<div class="project-card__actions">
+			<a class="project-card__link" href="#">Read the portfolio</a>
+			<a class="project-card__link" href="#">Watch the video pitch</a>
+		</div>
+	</div>
+</article>
+
+<article class="project-card project-card--pink">
+	<h2 class="project-card__title">Gizmo</h2>
+
+	<div class="project-card__demo">
+		<!-- Add your project demo here -->
+	</div>
+
+	<div class="project-card__content">
+		<div class="project-card__copy">
+			<h3 class="project-card__question">
+			Work in progress
+			</h3>
+
+		<p class="project-card__description">
+			The brief - "something that moves". In a team of 2, we are making a synthesiser controlled by hand shadows with a marble machine controlling rhythm.  
+		</p>
+  		</div>
+
+		<div class="project-card__actions">
+			<a class="project-card__link" href="#">Read the portfolio</a>
+			<a class="project-card__link" href="#">Watch the video pitch</a>
+		</div>
+	</div>
+</article>
+
+<div class="dual-project-grid">
+  <article class="dual-project-card dual-project-card--sewing">
+    <h2 class="dual-project-card__title">REVENG</h2>
+    <p class="dual-project-card__description">Materials and manufacturing analysis, teardown, and redesign of a portable sewing machine. Includes a comprehensive ecological analysis.</p>
+    <div class="dual-project-card__demo"></div>
+  </article>
+
+  <article class="dual-project-card dual-project-card--heart">
+    <h2 class="dual-project-card__title">Heart disease predictor</h2>
+    <p class="dual-project-card__description">Deep learning pipeline analysing heart disease in men.</p>
+    <div class="dual-project-card__demo"></div>
+  </article>
+</div>
+
 </html>
