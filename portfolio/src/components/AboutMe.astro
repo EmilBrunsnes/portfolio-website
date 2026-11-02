@@ -6,7 +6,7 @@ import thumb from '../assets/posters/thumbnailAboutMeNoBottom.webp'
 
 <section class="about-me">
 
-  <button class = "flyer-thumbnail" id = "about-open" type = "button" aria-haspopup = "dialog" aria-controls = "about-dialog">
+  <button class = "thumb" id = "about-open" type = "button" aria-haspopup = "dialog" aria-controls = "about-dialog">
     <Image src = {thumb} alt = "About me" class = "flyer-img" />
     <span class = "hint">Click to read</span>
   </button>
@@ -49,7 +49,7 @@ import thumb from '../assets/posters/thumbnailAboutMeNoBottom.webp'
 
 <style>
   .about-me {
-    width: min(90%, 1200px);
+    width: min(420px, 100%);
     font-family: 'Courier New', Courier, monospace;
     margin-left: auto;
     margin-right: auto;
@@ -58,13 +58,6 @@ import thumb from '../assets/posters/thumbnailAboutMeNoBottom.webp'
   .about-me-bg {
     padding: 1.2rem 1.5rem 0.6rem 1.5rem;
     background-color: #f4f1e8;
-  }
-
-  @media (min-width: 640px) {
-    .about-me {
-      width: min(70%, 1200px);
-      padding: 0.8rem 2.2rem 0.6rem 2.2rem;
-    }
   }
 
   .container {
@@ -102,6 +95,7 @@ import thumb from '../assets/posters/thumbnailAboutMeNoBottom.webp'
     background: none;
     transform: rotate(-2deg);
     transition: transform 0.2s;
+    position: relative;
   } 
 
   .thumb:hover {
@@ -114,7 +108,15 @@ import thumb from '../assets/posters/thumbnailAboutMeNoBottom.webp'
     height: auto;
   }
 
-  dialog { 
+  .hint {
+    position: absolute;
+    right: 10px;
+    bottom: 8px;
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+
+  .dialog { 
     width: min(90vw, 900px);
     border: 0;
     padding: 2.5rem;
