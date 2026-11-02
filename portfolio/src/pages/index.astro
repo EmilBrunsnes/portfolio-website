@@ -3,6 +3,7 @@ import shadow from '../assets/posters/shadow-synth.jpg';
 import guitar from '../assets/posters/guitar-trainer.jpg';
 import rc from '../assets/posters/rc-car.jpg';
 import canvas from '../assets/posters/canvas.jpg';
+import myface from '../assets/emil/me.jpg';
 
 const posters = [
   {href: '/shadow-synth', img: shadow, alt: 'View Shadow Synth', rotate: -1, scale: 1.05},
@@ -10,6 +11,8 @@ const posters = [
   {href: '/guitar-trainer', img: guitar, alt: 'View guitar trainer', rotate: -0.3, scale: 0.95},
   {href: '/rc-car', img: rc, alt: 'View RC car', rotate: 0.6, scale: 0.93},
 ];
+
+
 ---
 
 <html>
@@ -25,6 +28,22 @@ const posters = [
   </nav>
   </header>
 
+  <section class="about-me">
+    <h1> About me</h1>
+    <div class = "container">
+      <p>I am a Year 2 design engineering student at Imperial College London, interested in combining technical engineering with designing for people  I enjoy every aspect of design engineering - conducting user research, coming up with ideas, and making prototypes.</p>
+      <img src = {myface.src} alt="Picture of Emil Brunsnes" class="image-right" width={myface.width} height={myface.height}/>
+    </div>
+
+    
+    <div class = "tabs">
+      <a href="/cv">cv</a>
+      <a href="https://www.linkedin.com/in/emil-brunsnes-378149399/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:emil.brunsnes25@imperial.ac.uk">email UPDATE </a>  
+      <a class="gone" aria-hidden="true" tabindex="-1"></a>
+    </div>
+  </section>
+
   <body>
     <main class = 'poster-grid'>
     {posters.map((p) => (
@@ -37,6 +56,52 @@ const posters = [
 </html>
 
 <style>
+
+  .container {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1.5rem;
+    gap: 15px;
+  }
+
+
+  .about-me {
+    width: min(70%, 1200px);
+    font-family: 'Courier New', Courier, monospace;
+    background: #FFFFFF;
+
+    padding: 0.8rem 2.2rem 0.6rem 2.2rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .image-right {
+    width: 150px;
+    max-width: 100%;
+    object-fit: cover;
+    height: auto;
+    display: block;
+  }
+
+  .tabs {
+    display: flex;
+    margin: 2rem -1.5rem 0;
+    border-top: 2px dashed #141414;
+    background: #FFFFFF;
+  }
+
+  .tabs a {
+    flex: 1;
+    height:  9rem;
+    padding: 0.75rem 0;
+    display: grid;
+    place-items: center;
+    writing-mode: vertical-rl;
+    text-align: center;
+    color: inherit;
+    border-right: 2px dashed #14182e;
+  }
+
   .paper-tab {
     font-family: 'Courier New', Courier, monospace;
     width: fit-content;
@@ -147,15 +212,5 @@ const posters = [
     margin: 0;
     min-height: 100vh;
     background-color: #8f8f8b;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    opacity: 0.12;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 </style>
