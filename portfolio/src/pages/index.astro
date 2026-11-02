@@ -1,81 +1,161 @@
 ---
-import "../styles/global.css";
-import "../styles/project-card-featured.css"
-import "../styles/project-card-dual.css"
+import shadow from '../assets/posters/shadow-synth.jpg';
+import guitar from '../assets/posters/guitar-trainer.jpg';
+import rc from '../assets/posters/rc-car.jpg';
+import canvas from '../assets/posters/canvas.jpg';
+
+const posters = [
+  {href: '/shadow-synth', img: shadow, alt: 'View Shadow Synth', rotate: -1, scale: 1.05},
+  {href: '/canvas', img: canvas, alt: 'View the Canvas', rotate: 1.2, scale: 1},
+  {href: '/guitar-trainer', img: guitar, alt: 'View guitar trainer', rotate: -0.3, scale: 0.95},
+  {href: '/rc-car', img: rc, alt: 'View RC car', rotate: 0.6, scale: 0.93},
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Emil Brunsnes</title>
-	</head>
+<html>
+  <header class="paper-tab">
+    <h1>Emil Brunsnes</h1>
+    <p>Design engineer looking for summer 2027 internship</p>
+  <nav>
+    <a href="/cv">cv</a>
+    <span class="dot">&bull;</span>
+    <a href="https://www.linkedin.com/in/emil-brunsnes-378149399/" target="_blank" rel="noopener">LinkedIn</a>
+    <span class="dot">&bull;</span>
+    <a href="mailto:emil.brunsnes25@imperial.ac.uk">email UPDATE </a>
+  </nav>
+  </header>
 
-<article class="project-card project-card--blue">
-	<h2 class="project-card__title">The Canvas</h2>
-
-	<div class="project-card__demo">
-		<!-- Add your project demo here -->
-	</div>
-
-	<div class="project-card__content">
-		<div class="project-card__copy">
-			<h3 class="project-card__question">
-			How might we bring students together on campus?
-			</h3>
-
-		<p class="project-card__description">
-			We investigated sources of student stress by observing, interviewing, and codesigning with students. We came up with the Canvas, a collaborative artwork. 
-		</p>
-  		</div>
-
-		<div class="project-card__actions">
-			<a class="project-card__link" href="#">Read the portfolio</a>
-			<a class="project-card__link" href="#">Watch the video pitch</a>
-		</div>
-	</div>
-</article>
-
-<article class="project-card project-card--pink">
-	<h2 class="project-card__title">Gizmo</h2>
-
-	<div class="project-card__demo">
-		<!-- Add your project demo here -->
-	</div>
-
-	<div class="project-card__content">
-		<div class="project-card__copy">
-			<h3 class="project-card__question">
-			Work in progress
-			</h3>
-
-		<p class="project-card__description">
-			The brief - "something that moves". In a team of 2, we are making a synthesiser controlled by hand shadows with a marble machine controlling rhythm.  
-		</p>
-  		</div>
-
-		<div class="project-card__actions">
-			<a class="project-card__link" href="#">Read the portfolio</a>
-			<a class="project-card__link" href="#">Watch the video pitch</a>
-		</div>
-	</div>
-</article>
-
-<div class="dual-project-grid">
-  <article class="dual-project-card dual-project-card--sewing">
-    <h2 class="dual-project-card__title">REVENG</h2>
-    <p class="dual-project-card__description">Materials and manufacturing analysis, teardown, and redesign of a portable sewing machine. Includes a comprehensive ecological analysis.</p>
-    <div class="dual-project-card__demo"></div>
-  </article>
-
-  <article class="dual-project-card dual-project-card--heart">
-    <h2 class="dual-project-card__title">Heart disease predictor</h2>
-    <p class="dual-project-card__description">Deep learning pipeline analysing heart disease in men.</p>
-    <div class="dual-project-card__demo"></div>
-  </article>
-</div>
-
+  <body>
+    <main class = 'poster-grid'>
+    {posters.map((p) => (
+      <a class = "poster" href = {p.href} style = {`--rot: ${p.rotate}deg; --scale: ${p.scale};`}>
+        <img src = {p.img.src} alt = {p.alt} width = {p.img.width} height = {p.img.height}/>
+      </a>
+    ))}
+    </main>
+  </body>
 </html>
+
+<style>
+  .paper-tab {
+    font-family: 'Courier New', Courier, monospace;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 0.8rem 2.2rem 0.6rem 2.2rem;
+    
+    text-align: center;
+
+    background-color: #fff2a3;
+
+    box-shadow: 
+      0 2px 4px rgba(0, 0, 0, 0.1),
+      0 8px 16px rgba(0, 0, 0, 0.15);
+
+    position: relative;
+    z-index: 20;
+  }
+
+  .paper-tab nav {
+    font-size: 0.95rem;
+    letter-spacing: 0.03rem;
+    color: #1a1a1a;
+    justify-content: center;
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .paper-tab .dot {
+    opacity: 0.6;
+    user-select: none;
+  }
+
+  .paper-tab a {
+    color: #1a1a1a;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    display: inline-block;
+  }
+
+  .paper-tab a:hover {
+    text-decoration: underline;
+    opacity: 1;
+  }
+
+  .paper-tab h1 {
+    margin: 0;
+    font-size: 1.3rem; /* optional: tweak heading size if needed */
+  }
+  .paper-tab p {
+    margin: 0.25rem 0 0.75rem 0; /* top | right | bottom | left */
+  }
+
+  .poster-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: min(60vw, 700px);
+    max-width: 1200px;
+    gap: 2rem;
+    margin: 0 auto;
+    padding: 1.5rem 2rem 4rem 2rem;
+  }
+
+  @media (min-width: 640px) {
+    .poster-grid {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 1.5rem;
+      row-gap: 1rem;
+    }
+  }
+
+  .poster {
+    position: relative;
+    display: block;
+    transform: rotate(var(--rot)) scale(var(--scale));
+
+    box-shadow: 
+      0 2px 4px rgba(0, 0, 0, 0.12),
+      0 8px 20px rgba(0, 0, 0, 0.22),
+      0 16px 36px rgba(0, 0, 0, 0.25);
+
+    border-radius: 8px;
+
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                box-shadow 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+                z-index 0s;
+
+  }
+
+  .poster:hover {
+    transform: rotate(0) scale(calc(var(--scale) * 1.03)) translateY(-6px);
+    z-index: 15;
+    box-shadow: 
+      0 4px 8px rgba(0, 0, 0, 0.15),
+      0 16px 32px rgba(0, 0, 0, 0.3),
+      0 28px 50px rgba(0, 0, 0, 0.35);
+  }
+
+  .poster img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+</style>
+
+<style is:global>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: #8f8f8b;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.12;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+</style>
