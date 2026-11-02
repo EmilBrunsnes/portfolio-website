@@ -1,25 +1,9 @@
 ---
 import { Image } from 'astro:assets';
 import myface from '../assets/emil/me.jpg';
-import thumb from '../assets/posters/thumbnailAboutMeNoBottom.webp'
 ---
 
 <section class="about-me">
-
-  <button class = "thumb" id = "about-open" type = "button" aria-haspopup = "dialog" aria-controls = "about-dialog">
-    <Image src = {thumb} alt = "About me" class = "flyer-img" />
-    <span class = "hint">Click to read</span>
-  </button>
-  <div class="tabs">
-    <a href="/cv">cv</a>
-    <a href="https://www.linkedin.com/in/emil-brunsnes-378149399/" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="mailto:emil.brunsnes25@imperial.ac.uk">email</a>  
-    <div class="torn-stubs"></div>
-  </div>
-
-
-  <dialog id = "about">
-  <button class = "close" id = "about-close" aria-label = "Close">x</button>
   <div class= "about-me-bg">
   <div class="container">
     <div class = "text">
@@ -43,13 +27,14 @@ import thumb from '../assets/posters/thumbnailAboutMeNoBottom.webp'
     <a href="mailto:emil.brunsnes25@imperial.ac.uk">email</a>  
     <div class="torn-stubs"></div>
   </div>
-  </dialog>
 
+  
+  
 </section>
 
 <style>
   .about-me {
-    width: min(420px, 100%);
+    width: min(90%, 1200px);
     font-family: 'Courier New', Courier, monospace;
     margin-left: auto;
     margin-right: auto;
@@ -58,6 +43,13 @@ import thumb from '../assets/posters/thumbnailAboutMeNoBottom.webp'
   .about-me-bg {
     padding: 1.2rem 1.5rem 0.6rem 1.5rem;
     background-color: #f4f1e8;
+  }
+
+  @media (min-width: 640px) {
+    .about-me {
+      width: min(70%, 1200px);
+      padding: 0.8rem 2.2rem 0.6rem 2.2rem;
+    }
   }
 
   .container {
@@ -87,54 +79,6 @@ import thumb from '../assets/posters/thumbnailAboutMeNoBottom.webp'
       width: 170px;
       height: auto;
     }
-  }
-
-  .thumb {
-    padding: 0;
-    border: 0;
-    background: none;
-    transform: rotate(-2deg);
-    transition: transform 0.2s;
-    position: relative;
-  } 
-
-  .thumb:hover {
-    transform: rotate(0) scale(1.04);
-  }
-
-  .thumb :global(img) {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .hint {
-    position: absolute;
-    right: 10px;
-    bottom: 8px;
-    font-size: 0.8rem;
-    opacity: 0.7;
-  }
-
-  .dialog { 
-    width: min(90vw, 900px);
-    border: 0;
-    padding: 2.5rem;
-    background: #f4f1e8;
-    font-family: 'Courier New', Courier, monospace;
-  }
-
-  dialog::backdrop {
-    background: rgba(0, 0, 0, 0.6);
-  }
-
-  .close {
-    position: absolute;
-    top: 0.5rem;
-    right: 1rem;
-    border: 0;
-    background: none;
-    font-size: 2rem;
   }
 
   .tabs {
@@ -282,20 +226,6 @@ import thumb from '../assets/posters/thumbnailAboutMeNoBottom.webp'
 }
   
 </style>
-
-<script>
-  const dialog = document.getElementById('about') as HTMLDialogElement;
-  const openBtn = document.getElementById('about-open') as HTMLButtonElement;
-  const closeBtn = document.getElementById('about-close') as HTMLButtonElement;
-
-  openBtn.addEventListener('click', () => dialog.showModal());
-  closeBtn.addEventListener('click', () => dialog.close());
-
-  // Clicking the dark area outside the card closes it
-  dialog.addEventListener('click', (e) => {
-    if (e.target === dialog) dialog.close();
-  });
-</script>
 
 <script>
   const tabs = document.querySelectorAll('.tabs a')
