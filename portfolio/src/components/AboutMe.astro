@@ -1,0 +1,99 @@
+---
+import { Image } from 'astro:assets';
+import myface from '../assets/emil/me.jpg';
+---
+
+<section class="about-me">
+  <h1>About me</h1>
+  
+  <div class="container">
+    <p>
+      I am a Year 2 design engineering student at Imperial College London, interested in combining technical engineering with designing for people  I enjoy every aspect of design engineering - conducting user research, coming up with ideas, and making prototypes.
+    </p>
+    <Image 
+      src={myface} 
+      alt="Picture of Emil Brunsnes" 
+      class="profile-image" 
+    />
+  </div>
+
+  <div class="tabs">
+    <a href="/cv">cv</a>
+    <a href="https://www.linkedin.com/in/emil-brunsnes-378149399/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="mailto:emil.brunsnes25@imperial.ac.uk">email</a>  
+  </div>
+</section>
+
+<style>
+  .about-me {
+    width: min(92%, 1200px);
+    font-family: 'Courier New', Courier, monospace;
+    background: #FFFFFF;
+    padding: 1.2rem 1.5rem 0.6rem 1.5rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (min-width: 640px) {
+    .about-me {
+      width: min(70%, 1200px);
+      padding: 0.8rem 2.2rem 0.6rem 2.2rem;
+    }
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .profile-image {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    display: block;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .profile-image {
+      width: 170px;
+      height: 170px;
+    }
+  }
+
+  .tabs {
+    display: flex;
+    margin: 2rem -1.5rem 0;
+    border-top: 2px dashed #141414;
+    background: #FFFFFF;
+  }
+
+  .tabs a {
+    flex: 1;
+    height: 9rem;
+    padding: 0.75rem 0;
+    display: grid;
+    place-items: center;
+    writing-mode: vertical-rl;
+    text-align: center;
+    color: inherit;
+    border-right: 2px dashed #141414;
+    text-decoration: none;
+  }
+
+  .tabs a:last-child {
+    border-right: none;
+  }
+
+  .tabs a:hover {
+    text-decoration: underline;
+  }
+</style>
