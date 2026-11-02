@@ -1,9 +1,25 @@
 ---
 import { Image } from 'astro:assets';
 import myface from '../assets/emil/me.jpg';
+import thumb from '../assets/posters/thumbnailAboutMeNoBottom.webp'
 ---
 
 <section class="about-me">
+
+  <button class = "flyer-thumbnail" id = "about-open" type = "button" aria-haspopup = "dialog" aria-controls = "about-dialog">
+    <Image src = {thumb} alt = "About me" class = "flyer-img" />
+    <span class = "hint">Click to read</span>
+  </button>
+  <div class="tabs">
+    <a href="/cv">cv</a>
+    <a href="https://www.linkedin.com/in/emil-brunsnes-378149399/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="mailto:emil.brunsnes25@imperial.ac.uk">email</a>  
+    <div class="torn-stubs"></div>
+  </div>
+
+
+  <dialog id = "about">
+  <button class = "close" id = "about-close" aria-label = "Close">x</button>
   <div class= "about-me-bg">
   <div class="container">
     <div class = "text">
@@ -27,9 +43,8 @@ import myface from '../assets/emil/me.jpg';
     <a href="mailto:emil.brunsnes25@imperial.ac.uk">email</a>  
     <div class="torn-stubs"></div>
   </div>
+  </dialog>
 
-  
-  
 </section>
 
 <style>
@@ -79,6 +94,45 @@ import myface from '../assets/emil/me.jpg';
       width: 170px;
       height: auto;
     }
+  }
+
+  .thumb {
+    padding: 0;
+    border: 0;
+    background: none;
+    transform: rotate(-2deg);
+    transition: transform 0.2s;
+  } 
+
+  .thumb:hover {
+    transform: rotate(0) scale(1.04);
+  }
+
+  .thumb :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  dialog { 
+    width: min(90vw, 900px);
+    border: 0;
+    padding: 2.5rem;
+    background: #f4f1e8;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  dialog::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  .close {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    border: 0;
+    background: none;
+    font-size: 2rem;
   }
 
   .tabs {
@@ -226,6 +280,20 @@ import myface from '../assets/emil/me.jpg';
 }
   
 </style>
+
+<script>
+  const dialog = document.getElementById('about') as HTMLDialogElement;
+  const openBtn = document.getElementById('about-open') as HTMLButtonElement;
+  const closeBtn = document.getElementById('about-close') as HTMLButtonElement;
+
+  openBtn.addEventListener('click', () => dialog.showModal());
+  closeBtn.addEventListener('click', () => dialog.close());
+
+  // Clicking the dark area outside the card closes it
+  dialog.addEventListener('click', (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+</script>
 
 <script>
   const tabs = document.querySelectorAll('.tabs a')
