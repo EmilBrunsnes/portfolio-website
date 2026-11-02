@@ -3,10 +3,34 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import AboutMe from '../components/AboutMe.astro';
 import PosterGrid from '../components/PosterGrid.astro';
+
+//todo work on tab animation, should tear immediately and work on click
 ---
 
-/* to do: make tab tear at top when pulling down */
+
 <Layout title="Emil Brunsnes — Design Engineer">
-  <AboutMe />
-  <PosterGrid />
+  <div class ="wall">
+    <AboutMe /> 
+    <PosterGrid />
+  </div>
 </Layout>
+
+<style>
+  .wall {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  @media (min-width 900px){
+    .wall {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+</style>
+
+
