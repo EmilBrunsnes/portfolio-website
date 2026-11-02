@@ -5,7 +5,7 @@ interface Props {
 }
 
 const { 
-  title = "Emil Brunsnes — Design Engineer", 
+  title = "Emil Brunsnes", 
   description = "Design engineering student at Imperial College London" 
 } = Astro.props;
 ---
@@ -26,9 +26,15 @@ const {
 
 <style is:global>
   body {
-    margin: 0;
-    min-height: 100vh;
-    background-color: #8f8f8b;
-    font-family: 'Courier New', Courier, monospace;
-  }
+    background-color: #b5a585;               /* shows while the image loads */
+    background-image:
+      radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,.65) 100%),
+      linear-gradient(rgba(20,10,5,.25), rgba(20,10,5,.25)),
+      url("/brick.webp");
+
+    background-size: cover, auto, 512px;
+    background-repeat: no-repeat, no-repeat, repeat;
+    background-attachment: fixed, scroll, scroll;
+    background-blend-mode: normal, normal, multiply;
+}
 </style>
