@@ -4,34 +4,45 @@ import myface from '../assets/emil/me.jpg';
 ---
 
 <section class="about-me">
-  <h1>About me</h1>
-  
+  <div class= "about-me-bg">
   <div class="container">
-    <p>
-      I am a Year 2 design engineering student at Imperial College London, interested in combining technical engineering with designing for people  I enjoy every aspect of design engineering - conducting user research, coming up with ideas, and making prototypes.
-    </p>
+    <div class = "text">
+      <h1>About me</h1>
+      <p>
+        I am a Year 2 design engineering student at Imperial College London, interested in combining technical engineering with designing for people. My favourite projects follow the whole thread of product development - from user research to prototyping.
+      </p>
+    </div>
+
     <Image 
       src={myface} 
       alt="Picture of Emil Brunsnes" 
       class="profile-image" 
     />
   </div>
+  </div>
 
   <div class="tabs">
     <a href="/cv">cv</a>
     <a href="https://www.linkedin.com/in/emil-brunsnes-378149399/" target="_blank" rel="noopener">LinkedIn</a>
     <a href="mailto:emil.brunsnes25@imperial.ac.uk">email</a>  
+    <div class="torn-stubs"></div>
   </div>
+
+  
+  
 </section>
 
 <style>
   .about-me {
-    width: min(92%, 1200px);
+    width: min(90%, 1200px);
     font-family: 'Courier New', Courier, monospace;
-    background: #FFFFFF;
-    padding: 1.2rem 1.5rem 0.6rem 1.5rem;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .about-me-bg {
+    padding: 1.2rem 1.5rem 0.6rem 1.5rem;
+    background-color: #f4f1e8;
   }
 
   @media (min-width: 640px) {
@@ -46,6 +57,7 @@ import myface from '../assets/emil/me.jpg';
     flex-direction: column-reverse;
     align-items: center;
     gap: 1.25rem;
+
   }
 
   .profile-image {
@@ -65,19 +77,23 @@ import myface from '../assets/emil/me.jpg';
 
     .profile-image {
       width: 170px;
-      height: 170px;
+      height: auto;
     }
   }
 
   .tabs {
+    position: relative; 
+    align-content: left;
     display: flex;
-    margin: 2rem -1.5rem 0;
-    border-top: 2px dashed #141414;
-    background: #FFFFFF;
+    background: transparent;
+    perspective: 800px;
+    user-select: none;  
+    touch-action: none; 
   }
 
   .tabs a {
-    flex: 1;
+    position: relative;
+    flex: 0 0 75px;
     height: 9rem;
     padding: 0.75rem 0;
     display: grid;
@@ -85,15 +101,193 @@ import myface from '../assets/emil/me.jpg';
     writing-mode: vertical-rl;
     text-align: center;
     color: inherit;
-    border-right: 2px dashed #141414;
+    background-color: #f4f1e8;
     text-decoration: none;
+    transform-origin: top left;
+    z-index: 2;
   }
 
-  .tabs a:last-child {
+  .tabs a::before {
+    content: '';
+    position: absolute;
+    top: 8px;              /* Moves the perforation line 16px down */
+    left: 0;
+    right: 0;
+    border-top: 2px dotted #858585;
+  }
+
+  .tabs a::after {
+    content: '';
+    position: absolute;
+    top: 8px;           /* Starts at the horizontal perforation line */
+    bottom: 0;          /* Runs to the bottom of the tab */
+    right: 0;
+    border-right: 2px dotted #858585;
+  }
+
+  .tabs a.is-torn {
+  /* Cuts a jagged ripped edge into the TOP of the falling paper */
+  clip-path: polygon(
+    0% 10px, 
+    15% 2px, 
+    30% 9px, 
+    45% 1px, 
+    60% 11px, 
+    75% 3px, 
+    90% 10px, 
+    100% 4px,
+    100% 100%, 
+    0% 100%
+  );
+  
+  animation: flutterFall 1.6s cubic-bezier(.33,0,.2,1) forwards;
+  pointer-events: none;
+}
+
+  .tabs a:last-of-type::after {
+    display: none;      /* No vertical line on the torn edge of the last tab */
+  }
+
+  .tabs a:last-of-type {
     border-right: none;
   }
 
-  .tabs a:hover {
-    text-decoration: underline;
+
+  .torn-stubs {
+    flex: 1;
+    height: 18px;
+    background-color: #f4f1e8;
+    
+    clip-path: polygon(
+      0% 0%,
+      100% 0%,
+      100% 40%,
+      96% 75%,
+      92% 35%,
+      88% 80%,
+      84% 45%,
+      80% 85%,
+      76% 40%,
+      72% 75%,
+      68% 35%,
+      64% 90%,
+      60% 45%,
+      56% 80%,
+      52% 35%,
+      48% 85%,
+      44% 40%,
+      40% 75%,
+      36% 35%,
+      32% 90%,
+      28% 45%,
+      24% 80%,
+      20% 40%,
+      16% 75%,
+      12% 35%,
+      8% 85%,
+      4% 45%,
+      0% 55%
+    );
   }
+
+  :global(.tab-stub) {
+    position: absolute;
+    top: 0;
+    width: 75px;
+    height: 18px;
+    background-color: #f4f1e8;
+    z-index: 1;
+    
+    clip-path: polygon(
+      0% 0%,
+      100% 0%,
+      100% 55%,
+      88% 85%,
+      76% 40%,
+      64% 90%,
+      50% 35%,
+      38% 80%,
+      24% 45%,
+      12% 75%,
+      0% 55%
+    );
+  }
+
+  @keyframes flutterFall {
+  0%   { transform: translate(0,0)      rotate(0deg)   scale(1);    opacity: 1; }
+  6%   { transform: translate(2px,-6px) rotate(-4deg)  scale(1.02); opacity: 1; }
+  14%  { transform: translate(-6px,14px) rotate(10deg);             opacity: 1; }
+  28%  { transform: translate(18px, 28vh) rotate(-18deg); }
+  42%  { transform: translate(-22px, 46vh) rotate(22deg); }
+  58%  { transform: translate(16px, 64vh) rotate(-26deg); }
+  74%  { transform: translate(-12px, 82vh) rotate(30deg); opacity: 1; }
+  90%  { transform: translate(6px, 96vh) rotate(10deg);  opacity: .9; }
+  100% { transform: translate(0, 100vh) rotate(16deg) scale(.96);   opacity: 0; }
+}
+  
 </style>
+
+<script>
+  const tabs = document.querySelectorAll('.tabs a')
+
+  tabs.forEach((tab) => {
+  let startY = 0;
+  let isDragging = false;
+  let rafId = null;
+  let stub = null;
+
+  tab.addEventListener('pointerdown', (event) => {
+    event.preventDefault();
+    isDragging = true;
+    startY = event.clientY;
+    tab.setPointerCapture(event.pointerId);
+    tab.style.transition = 'none';
+
+    stub = document.createElement('div');
+    stub.className = 'tab-stub';
+    stub.style.left =  `${tab.offsetLeft}px`;
+    tab.parentNode.insertBefore(stub, tab);
+  });
+
+  tab.addEventListener('pointermove', (event) => {
+    if (!isDragging) return;
+
+
+    const rawDelta = Math.max(0, event.clientY - startY);
+    const deltaY = Math.pow(rawDelta, 0.88);
+
+    if (rafId) cancelAnimationFrame(rafId);
+
+    rafId = requestAnimationFrame(() => {
+    tab.style.transform = `
+      translateY(${deltaY}px)
+      rotateX(${deltaY * 0.35}deg)
+      rotateZ(${deltaY * 0.1}deg)`;}
+    )
+    
+      
+    if (deltaY > 75) {
+      isDragging = false;
+      stub = null;
+
+      if (rafId) cancelAnimationFrame(rafId);
+
+      tab.style.transition = '';
+      tab.style.transform = '';
+      tab.classList.add('is-torn');
+      tab.releasePointerCapture(event.pointerId);
+    }
+  });
+
+  tab.addEventListener('pointerup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    if (stub) {
+      stub.remove();
+      stub = null;
+    }
+    tab.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+    tab.style.transform = 'translateY(0) rotateX(0deg) rotateZ(0deg)';
+  });
+  });
+</script>
