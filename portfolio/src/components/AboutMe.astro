@@ -253,7 +253,7 @@ import myface from '../assets/emil/me.jpg';
     setTimeout(() => {
       if (tab.target === "_blank") window.open(tab.href, '_blank', 'noopener');
       else location.href = tab.href;
-    }, 400)
+    }, 1200)
   }
 
   tabs.forEach((tab) => {
@@ -290,7 +290,7 @@ import myface from '../assets/emil/me.jpg';
     }
     
     tab.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-    tab.style.transform = 'translateY(0) rotateX(0deg) rotateZ(0deg)';
+    tab.style.transform = '';
   }
 
   tab.addEventListener('pointerup', () => letGo(false));
@@ -309,6 +309,9 @@ import myface from '../assets/emil/me.jpg';
     stub.className = 'tab-stub';
     stub.style.left =  `${tab.offsetLeft}px`;
     tab.parentNode.insertBefore(stub, tab);
+    moved = 0;
+    stub.style.backgroundPosition =
+  `${-tab.offsetLeft}px ${-document.querySelector('.about-me-bg').offsetHeight}px`;
   });
 
   tab.addEventListener('pointermove', (event) => {
@@ -345,6 +348,8 @@ import myface from '../assets/emil/me.jpg';
 
       tab.style.transition = '';
       tab.style.transform = '';
+      tab.style.filter = '';
+      tab.style.boxShadow = '';
       tab.classList.add('is-torn');
       openLink(tab);
       tab.releasePointerCapture(event.pointerId);
@@ -361,7 +366,7 @@ import myface from '../assets/emil/me.jpg';
 
   });
 
-    document.addEventListener('visibilitychange', () => {
+  document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') {
       document.querySelectorAll('.tabs a.is-torn').forEach((t) => {
         t.style.visibility = 'hidden';
