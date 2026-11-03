@@ -38,6 +38,14 @@ import myface from '../assets/emil/me.jpg';
     flex-shrink: 0;
     font-family: 'Courier New', Courier, monospace;
     transform: rotate(-1.5deg);
+    filter:
+    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35))
+    drop-shadow(0 10px 18px rgba(0, 0, 0, 0.35));
+  }
+
+  .about-me p {
+    font-size: 0.9em;
+    letter-spacing: -0.05em;
   }
 
   .about-me-bg {
@@ -58,6 +66,7 @@ import myface from '../assets/emil/me.jpg';
     height: 140px;
     object-fit: cover;
     display: block;
+    mix-blend-mode: multiply;
   }
 
   @media (min-width: 640px) {
@@ -98,6 +107,13 @@ import myface from '../assets/emil/me.jpg';
     text-decoration: none;
     transform-origin: top left;
     z-index: 2;
+
+    cursor: grab;
+    transition: transform 0.2s;
+  }
+
+  .tabs a:hover {
+    transform: rotateX(15deg);
   }
 
   .tabs a::before {
@@ -217,17 +233,69 @@ import myface from '../assets/emil/me.jpg';
   90%  { transform: translate(6px, 96vh) rotate(10deg);  opacity: .9; }
   100% { transform: translate(0, 100vh) rotate(16deg) scale(.96);   opacity: 0; }
 }
+
+.about-me-bg,
+.tabs a,
+.torn-stubs,
+:global(.tab-stub) {
+  background-color: #f4f1e8;
+  background-image: url("/paper.webp");
+  background-size: 400px;
+  background-blend-mode: multiply;
+}
   
 </style>
 
 <script>
   const tabs = document.querySelectorAll('.tabs a')
 
+  function openLink(tab) {
+    setTimeout(() => {
+      if (tab.target === "_blank") window.open(tab.href, '_blank', 'noopener');
+      else location.href = tab.href;
+    }, 400)
+  }
+
   tabs.forEach((tab) => {
   let startY = 0;
   let isDragging = false;
   let rafId = null;
   let stub = null;
+  let moved = 0;
+
+  tab.draggable = false;
+  tab.addEventListener('dragstart', (e) => e.preventDefault());
+
+  function letGo(cancelled) {
+    if (!isDragging) return;
+    isDragging = False;
+
+    if (rafId) cancelAnimationFrame(rafID);
+    tab.style.filter = '';
+    tab.style.boxShadow = '';
+    tab.style.zIndex = '';
+
+    if (!cancelled && moved < 5){  //genine click
+      stub = null;
+      tab.style.transition = '';
+      tab.style.transform = '';
+      tab.classList.add('is-torn');
+      openLink(tab);
+      return;
+    }
+
+    if (stub){
+      stub.remove();
+      stub = null;
+    }
+    
+    tab.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+    tab.style.transform = 'translateY(0) rotateX(0deg) rotateZ(0deg)';
+  }
+
+  tab.addEventListener('pointerup', () => letGo(false));
+  tab.addEventListener('pointercancel', () => letGo(true));
+  tab.addEventListener('lostpointercapture', () => letGo(true));
 
   tab.addEventListener('pointerdown', (event) => {
     event.preventDefault();
@@ -235,6 +303,7 @@ import myface from '../assets/emil/me.jpg';
     startY = event.clientY;
     tab.setPointerCapture(event.pointerId);
     tab.style.transition = 'none';
+    tab.style.zIndex = '3';
 
     stub = document.createElement('div');
     stub.className = 'tab-stub';
@@ -249,14 +318,23 @@ import myface from '../assets/emil/me.jpg';
     const rawDelta = Math.max(0, event.clientY - startY);
     const deltaY = Math.pow(rawDelta, 0.88);
 
+    moved = rawDelta;
+
     if (rafId) cancelAnimationFrame(rafId);
 
     rafId = requestAnimationFrame(() => {
-    tab.style.transform = `
-      translateY(${deltaY}px)
-      rotateX(${deltaY * 0.35}deg)
-      rotateZ(${deltaY * 0.1}deg)`;}
-    )
+    
+      const lift = Math.min(deltaY / 75, 1);
+      tab.style.transform = `
+        translateY(${deltaY}px)
+        rotateX(${deltaY * 0.35}deg)
+        rotateZ(${deltaY * 0.1}deg)`;}
+      )
+
+      tab.style.filter = `
+      brightness(${1 - lift * 0.2})
+      drop-shadow(0 ${lift * 10}px ${lift * 16}px rgba(0,0,0,0.7))`;
+      tab.style.boxShadow = `inset 0 16px 12px -8px rgba(0,0,0,${lift * 0.8})`;
     
       
     if (deltaY > 75) {
@@ -268,19 +346,27 @@ import myface from '../assets/emil/me.jpg';
       tab.style.transition = '';
       tab.style.transform = '';
       tab.classList.add('is-torn');
+      openLink(tab);
       tab.releasePointerCapture(event.pointerId);
     }
   });
 
-  tab.addEventListener('pointerup', () => {
-    if (!isDragging) return;
-    isDragging = false;
-    if (stub) {
-      stub.remove();
-      stub = null;
-    }
-    tab.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-    tab.style.transform = 'translateY(0) rotateX(0deg) rotateZ(0deg)';
   });
+
+  tab.addEventListener('click', (e) => {
+  if (e.detail !== 0) e.preventDefault();
   });
+</script>
+
+<script>
+  const paperCard = document.querySelector('.about-me-bg');
+
+  function alignPaper() {
+    document.querySelectorAll('.tabs a, .torn-stubs, .tab-stub').forEach((el) => {
+      el.style.backgroundPosition = `${-el.offsetLeft}px ${-paperCard.offsetHeight}px`;
+    });
+  }
+
+  alignPaper();
+  window.addEventListener('resize', alignPaper);
 </script>
