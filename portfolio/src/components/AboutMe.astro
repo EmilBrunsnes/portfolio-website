@@ -268,9 +268,9 @@ import myface from '../assets/emil/me.jpg';
 
   function letGo(cancelled) {
     if (!isDragging) return;
-    isDragging = False;
+    isDragging = false;
 
-    if (rafId) cancelAnimationFrame(rafID);
+    if (rafId) cancelAnimationFrame(rafId);
     tab.style.filter = '';
     tab.style.boxShadow = '';
     tab.style.zIndex = '';
@@ -328,14 +328,14 @@ import myface from '../assets/emil/me.jpg';
       tab.style.transform = `
         translateY(${deltaY}px)
         rotateX(${deltaY * 0.35}deg)
-        rotateZ(${deltaY * 0.1}deg)`;}
-      )
+        rotateZ(${deltaY * 0.1}deg)`;
+      
 
       tab.style.filter = `
       brightness(${1 - lift * 0.2})
-      drop-shadow(0 ${lift * 10}px ${lift * 16}px rgba(0,0,0,0.7))`;
-      tab.style.boxShadow = `inset 0 16px 12px -8px rgba(0,0,0,${lift * 0.8})`;
-    
+      drop-shadow(0 ${lift * 10}px ${lift * 16}px rgba(0,0,0,0.35))`;
+      tab.style.boxShadow = `inset 0 16px 12px -8px rgba(0,0,0,${lift * 0.6})`;
+      })
       
     if (deltaY > 75) {
       isDragging = false;
@@ -351,11 +351,25 @@ import myface from '../assets/emil/me.jpg';
     }
   });
 
-  });
-
-  tab.addEventListener('click', (e) => {
+   tab.addEventListener('click', (e) => {
   if (e.detail !== 0) e.preventDefault();
   });
+
+  tab.addEventListener('animationend', () => {
+  tab.style.visibility = 'hidden';
+  });
+
+  });
+
+    document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      document.querySelectorAll('.tabs a.is-torn').forEach((t) => {
+        t.style.visibility = 'hidden';
+      });
+    }
+  });
+
+ 
 </script>
 
 <script>
