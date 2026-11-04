@@ -74,6 +74,9 @@ const {
 
   /* Warm glow near the bulb */
   .light {
+    animation:
+      switchOn var(--neon-on) steps(1, end) both,
+      stutter var(--neon-cycle) steps(1, end) var(--neon-on) infinite;
     background: radial-gradient(
       ellipse 60vw 60vh at var(--light-x) var(--light-y),
       rgba(255, 120, 180, 0.35),
@@ -93,37 +96,34 @@ const {
   }
 
   @keyframes switchOn {
-  0%        { opacity: 0; }
-  4%        { opacity: 0.6; }   /* first spark */
-  6%        { opacity: 0; }
-  14%       { opacity: 1; }     /* almost catches... */
-  16%       { opacity: 0.1; }
-  20%       { opacity: 0; }     /* ...and drops out */
-  34%       { opacity: 0.8; }
-  37%       { opacity: 0.2; }
-  40%       { opacity: 1; }
-  44%       { opacity: 0.3; }   /* one last wobble */
-  52%, 100% { opacity: 1; }     /* on for good */
-}
+    0%        { opacity: 0; }
+    4%        { opacity: 0.6; }   /* first spark */
+    6%        { opacity: 0; }
+    14%       { opacity: 1; }     /* almost catches... */
+    16%       { opacity: 0.1; }
+    20%       { opacity: 0; }     /* ...and drops out */
+    34%       { opacity: 0.8; }
+    37%       { opacity: 0.2; }
+    40%       { opacity: 1; }
+    44%       { opacity: 0.3; }   /* one last wobble */
+    52%, 100% { opacity: 1; }     /* on for good */
+  }
 
 /* Running: a small dip, then a noticeable burst near the end of each cycle */
-@keyframes stutter {
-  0%, 40%           { opacity: 1; }
-  40.5%             { opacity: 0.5; }   /* quick dip */
-  41.5%             { opacity: 1; }
+  @keyframes stutter {
+    0%, 40%           { opacity: 1; }
+    40.5%             { opacity: 0.5; }   /* quick dip */
+    41.5%             { opacity: 1; }
 
-  85%               { opacity: 0.1; }   /* burst starts */
-  85.6%             { opacity: 1; }
-  86.3%             { opacity: 0.05; }
-  87%               { opacity: 0.7; }
-  87.5%             { opacity: 0.1; }
-  88.5%, 100%       { opacity: 1; }     /* recovers */
-}
+    85%               { opacity: 0.1; }   /* burst starts */
+    85.6%             { opacity: 1; }
+    86.3%             { opacity: 0.05; }
+    87%               { opacity: 0.7; }
+    87.5%             { opacity: 0.1; }
+    88.5%, 100%       { opacity: 1; }     /* recovers */
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    .neon-sign :global(.lit),
-    .neon-sign::before {
-      animation: none;
-    }
+    .light { animation: none; }
   }
 </style>
