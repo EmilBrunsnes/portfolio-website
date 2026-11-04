@@ -56,26 +56,19 @@ import lit from '../assets/neon/lit.svg';
         z-index: -1;
     }
 
-    .neon-sign :global(.lit), .neon-sign::before, .neon-sign :global(.glow) {
-        animation:
-        switchOn 2.4s steps(1, end) both,
-        stutter 7s steps(1, end) 1.4s infinite;
-    }
-
-    @keyframes switchOn {
-    0%, 15%, 30%, 50%   { opacity: 0; }
-    20%, 25%, 55%, 100% { opacity: 1; }
-  }
-
-  @keyframes stutter {
-    0%, 92%, 95%, 100% { opacity: 1; }
-    93%, 94.5%         { opacity: 0.1; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
     .neon-sign :global(.lit),
+    .neon-sign :global(.glow),
     .neon-sign::before {
-      animation: none;
+        animation:
+            switchOn var(--neon-on) steps(1, end) both,
+            stutter var(--neon-cycle) steps(1, end) var(--neon-on) infinite;
     }
-  }
+
+    @media (prefers-reduced-motion: reduce) {
+        .neon-sign :global(.lit),
+        .neon-sign :global(.glow),
+        .neon-sign::before {
+            animation: none;
+        }
+    }
 </style>
