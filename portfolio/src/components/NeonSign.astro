@@ -7,6 +7,7 @@ import lit from '../assets/neon/lit.svg';
 
 <html>
     <h1 class = "neon-sign">
+        <Image src = {lit} alt = "" class = "glow"/>
         <Image src = {base} alt = "Emil Brunsnes" class = "base" />
         <Image src ={lit} alt = "" class = "lit"/>
     </h1>
@@ -17,6 +18,15 @@ import lit from '../assets/neon/lit.svg';
         position: relative;
         margin: 0;
         max-width: 900px;
+    }
+
+    .neon-sign :global(.glow){
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        filter: blur(20px) saturate(1.6);
+        opacity: 0.9;
     }
 
     .neon-sign :global(.base){
@@ -36,17 +46,17 @@ import lit from '../assets/neon/lit.svg';
         drop-shadow(0 0 14px #ff3fa4);
     }
 
-    .neon-sign ::before {
+    .neon-sign::before {
         content: '';
         position: absolute;
         inset: -40% -25%;
-        background: radial-gradient(ellipse, rgba(255, 63, 164, 0.3), transparent 50%);
+        background: radial-gradient(ellipse, rgba(255, 63, 164, 0.2), transparent 80%);
         mix-blend-mode: screen;
         pointer-events: none;
         z-index: -1;
     }
 
-    .neon-sign :global(.lit), .neon-sign::before {
+    .neon-sign :global(.lit), .neon-sign::before, .neon-sign :global(.glow) {
         animation:
         switchOn 2.4s steps(1, end) both,
         stutter 7s steps(1, end) 1.4s infinite;
@@ -67,4 +77,5 @@ import lit from '../assets/neon/lit.svg';
     .neon-sign::before {
       animation: none;
     }
+  }
 </style>

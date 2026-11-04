@@ -41,19 +41,21 @@ const {
 }
 
   :root {
-    --light-x: 25%;
-    --light-y: 0%;
+    --light-x: 25vw;
+    --light-y: 15vh;
     --shadow-near: 3px 4px 4px rgba(0, 0, 0, 0.35);    /* tight contact shadow */
     --shadow-far: 10px 16px 24px rgba(0, 0, 0, 0.4);   /* soft, further out */
   }
 
   body {
     margin: 0;
+    position: relative;     /* overlays are positioned against the page */
+    min-height: 100vh;
   }
 
     .shade,
   .light {
-    position: fixed;
+    position: relative;
     inset: 0;
     pointer-events: none;     /* clicks pass through */
     z-index: 100;             /* above everything, so posters get lit too */
@@ -62,7 +64,7 @@ const {
   /* Darkness away from the bulb */
   .shade {
     background: radial-gradient(
-      ellipse 120% 100% at var(--light-x) var(--light-y),
+      ellipse 60vw 60vh at var(--light-x) var(--light-y),
       transparent 35%,
       rgba(15, 8, 3, 0.6) 100%
     );
@@ -71,7 +73,7 @@ const {
   /* Warm glow near the bulb */
   .light {
     background: radial-gradient(
-      ellipse 55% 50% at var(--light-x) var(--light-y),
+      ellipse 110vw 130vh at var(--light-x) var(--light-y),
       rgba(255, 200, 140, 0.4),
       transparent 70%
     );
