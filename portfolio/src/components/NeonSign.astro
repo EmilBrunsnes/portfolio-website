@@ -5,13 +5,13 @@ import lit from '../assets/neon/lit.svg';
 
 ---
 
-<html>
-    <h1 class = "neon-sign">
-        <Image src = {lit} alt = "" class = "glow"/>
-        <Image src = {base} alt = "Emil Brunsnes" class = "base" />
-        <Image src ={lit} alt = "" class = "lit"/>
-    </h1>
-</html>
+
+<h1 class = "neon-sign">
+    <Image src = {lit} alt = "" class = "glow"/>
+    <Image src = {base} alt = "Emil Brunsnes" class = "base" />
+    <Image src ={lit} alt = "" class = "lit"/>
+</h1>
+
 
 <style>
     .neon-sign {
@@ -26,7 +26,7 @@ import lit from '../assets/neon/lit.svg';
         width: 100%;
         height: 100%;
         filter: blur(20px) saturate(1.6);
-        opacity: 0.9;
+        opacity: calc(var(--lit) * 0.9);
     }
 
     .neon-sign :global(.base){
@@ -57,18 +57,9 @@ import lit from '../assets/neon/lit.svg';
     }
 
     .neon-sign :global(.lit),
-    .neon-sign :global(.glow),
     .neon-sign::before {
-        animation:
-            switchOn var(--neon-on) steps(1, end) both,
-            stutter var(--neon-cycle) steps(1, end) var(--neon-on) infinite;
+        opacity: var(--lit);
     }
 
-    @media (prefers-reduced-motion: reduce) {
-        .neon-sign :global(.lit),
-        .neon-sign :global(.glow),
-        .neon-sign::before {
-            animation: none;
-        }
-    }
+  
 </style>
