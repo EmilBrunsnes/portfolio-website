@@ -34,17 +34,15 @@ import myface from '../assets/emil/me.jpg';
 
 <style>
   .about-me {
-    width: min(460px, 100%);
+    width: min(380px, 100%);
     flex-shrink: 0;
     font-family: 'Courier New', Courier, monospace;
     transform: rotate(-1.5deg);
-    filter:
-    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35))
-    drop-shadow(0 10px 18px rgba(0, 0, 0, 0.35));
+    filter: drop-shadow(var(--shadow-near)) drop-shadow(var(--shadow-far));
   }
 
   .about-me p {
-    font-size: 0.9em;
+    font-size: 0.85em;
     letter-spacing: -0.05em;
   }
 
@@ -78,7 +76,7 @@ import myface from '../assets/emil/me.jpg';
     }
 
     .profile-image {
-      width: 170px;
+      width: 120px;
       height: auto;
     }
   }

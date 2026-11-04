@@ -1,0 +1,70 @@
+---
+import { Image } from 'astro:assets';
+import base from '../assets/neon/base.svg';
+import lit from '../assets/neon/lit.svg';
+
+---
+
+<html>
+    <h1 class = "neon-sign">
+        <Image src = {base} alt = "Emil Brunsnes" class = "base" />
+        <Image src ={lit} alt = "" class = "lit"/>
+    </h1>
+</html>
+
+<style>
+    .neon-sign {
+        position: relative;
+        margin: 0;
+        max-width: 900px;
+    }
+
+    .neon-sign :global(.base){
+        display: block;
+        width: 100%;
+        height: auto;
+        filter: drop-shadow(4px 8px 10px rgba(0, 0, 0, 0.5));
+    }
+
+    .neon-sign :global(.lit){
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: auto;
+        filter:
+        drop-shadow(0 0 4px #ff3fa4)
+        drop-shadow(0 0 14px #ff3fa4);
+    }
+
+    .neon-sign ::before {
+        content: '';
+        position: absolute;
+        inset: -40% -25%;
+        background: radial-gradient(ellipse, rgba(255, 63, 164, 0.3), transparent 50%);
+        mix-blend-mode: screen;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .neon-sign :global(.lit), .neon-sign::before {
+        animation:
+        switchOn 2.4s steps(1, end) both,
+        stutter 7s steps(1, end) 1.4s infinite;
+    }
+
+    @keyframes switchOn {
+    0%, 15%, 30%, 50%   { opacity: 0; }
+    20%, 25%, 55%, 100% { opacity: 1; }
+  }
+
+  @keyframes stutter {
+    0%, 92%, 95%, 100% { opacity: 1; }
+    93%, 94.5%         { opacity: 0.1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .neon-sign :global(.lit),
+    .neon-sign::before {
+      animation: none;
+    }
+</style>

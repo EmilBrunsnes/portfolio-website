@@ -36,6 +36,7 @@ const posters = [
       grid-template-columns: repeat(2, 1fr);
       column-gap: 1.5rem;
       row-gap: 1rem;
+      max-width: 900px;
     }
   }
 
@@ -44,11 +45,7 @@ const posters = [
     display: block;
     transform: rotate(var(--rot)) scale(var(--scale));
 
-    box-shadow: 
-      0 2px 4px rgba(0, 0, 0, 0.12),
-      0 8px 20px rgba(0, 0, 0, 0.22),
-      0 16px 36px rgba(0, 0, 0, 0.25);
-
+    box-shadow: var(--shadow-near), var(--shadow-far);
     transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), 
                 box-shadow 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
                 z-index 0s;

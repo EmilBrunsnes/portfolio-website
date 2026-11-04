@@ -1,36 +1,42 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
+import NeonSign from '../components/NeonSign.astro';
 import AboutMe from '../components/AboutMe.astro';
 import PosterGrid from '../components/PosterGrid.astro';
-
-//todo work on tab animation, should tear immediately and work on click
 ---
 
-
 <Layout title="Emil Brunsnes — Design Engineer">
-  <div class ="wall">
-    <AboutMe /> 
-    <PosterGrid />
+  <div class="wall">
+    <div class="sign-area">
+      <NeonSign />
+    </div>
+    <div class="about-area"><AboutMe /></div>
+    <div class="posters-area"><PosterGrid /></div>
   </div>
 </Layout>
 
 <style>
   .wall {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: "sign" "about" "posters";
     gap: 2rem;
-    max-width: 1400px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 2rem;
   }
 
-  @media (min-width: 900px){
+  @media (min-width: 900px) {
     .wall {
-      flex-direction: row;
-      align-items: flex-start;
+      grid-template-columns: 2fr 2fr;
+      grid-template-areas:
+        "sign    about"
+        "posters posters";
+      gap: 2rem 3rem;
     }
   }
+
+  .sign-area    { grid-area: sign; align-self: center; position: relative; z-index: 0; }
+  .about-area   { grid-area: about; justify-self: end; }
+  .posters-area { grid-area: posters; }
 </style>
-
-
