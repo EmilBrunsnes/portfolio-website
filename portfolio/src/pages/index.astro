@@ -3,15 +3,23 @@ import Layout from '../layouts/Layout.astro';
 import NeonSign from '../components/NeonSign.astro';
 import AboutMe from '../components/AboutMe.astro';
 import PosterGrid from '../components/PosterGrid.astro';
+import Skills from '../components/Skills.astro';
+import { Image } from 'astro:assets';
+import projectsGraff from '../assets/graffiti/projects.png' 
+
 ---
 
 <Layout title="Emil Brunsnes — Design Engineer">
   <div class="wall">
     <div class="sign-area">
       <NeonSign />
+      <Image src ={projectsGraff} alt = "projects:" class = "projects"/>
     </div>
     <div class="about-area"><AboutMe /></div>
-    <div class="posters-area"><PosterGrid /></div>
+    <div class="posters-area">
+      <PosterGrid />
+      <Skills/>
+    </div>
   </div>
 </Layout>
 
@@ -38,5 +46,29 @@ import PosterGrid from '../components/PosterGrid.astro';
 
   .sign-area    { grid-area: sign; align-self: start; padding-top: 2rem; position: relative; z-index: 0; }
   .about-area   { grid-area: about; justify-self: end; }
-  .posters-area { grid-area: posters; }
+  .posters-area {
+    grid-area: posters;
+    display: flex;
+    align-items: flex-start;   /* setlist sits at the top, not stretched */
+    gap: 2rem;
+    width: 100%;
+    max-width: 1000px;          /* raise this from 720px to make room for the setlist */
+    justify-self: center;
+  }
+
+  .projects {
+    display: block;
+    max-width: 300px;
+    height: auto;
+    justify-self: center;
+    transform: translateX(-6rem) translateY(7rem) rotate(-3deg);
+    mix-blend-mode: soft-light;
+    filter: saturate(0.75) brightness(0.9);
+  }
+
+  @media (max-width: 900px) {
+  .posters-area {
+    flex-direction: column;
+  }
+}
 </style>

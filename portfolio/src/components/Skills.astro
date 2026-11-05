@@ -1,0 +1,50 @@
+---
+import '@fontsource/nanum-pen-script';
+import Tape from './Tape.astro';   
+---
+
+<html>
+    <section class ="setlist">
+        <Tape top="-20px" left="50%" width={100} rotate={1} />
+    <h2> SETLIST </h2>
+    <ol>
+        <li>human-centred design</li>
+        <li>Fusion 360 (CAD + FEA)</li>
+        <li>embedded C++ / micropython</li>
+        <li>embedded sensors</li>
+        <li>computer vision · openCV</li>
+        <li>data science · scikit-learn</li>
+        <li>rapid prototyping</li>
+    </ol>
+    <h3> ENCORE </h3>
+    <ol start = "8">
+        <li>figma · adobe suite </li>
+    </ol>
+</section>
+</html>
+
+<style>
+    .setlist {
+        width: 200px;
+        position: relative;
+        padding: 0.5rem 1.5rem;
+        background-color: #fbfbf8;         /* the tint */
+        background-image: url("/paper.webp");
+        background-size: 400px;
+        background-blend-mode: multiply;
+        transform: rotate(2deg);
+        flex-shrink: 0;
+        font-size: small;
+        filter: drop-shadow(var(--shadow-near)) drop-shadow(var(--shadow-far));
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    .setlist ol {
+        margin: 0;
+        padding-left: 1.6rem;   /* room for the numbers */
+    }
+
+        .setlist li {
+        margin-bottom: 0.3rem;
+    }
+</style>

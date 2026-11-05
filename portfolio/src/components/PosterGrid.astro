@@ -4,12 +4,13 @@ import shadow from '../assets/posters/shadow-synth.jpg';
 import guitar from '../assets/posters/guitar-trainer.jpg';
 import rc from '../assets/posters/rc-car.jpg';
 import canvas from '../assets/posters/canvas.jpg';
+import Tape from './Tape.astro';
 
 const posters = [
-  {href: '/shadow-synth', img: shadow, alt: 'View Shadow Synth', rotate: -1, scale: 1.05},
-  {href: '/canvas', img: canvas, alt: 'View the Canvas', rotate: 1.2, scale: 1},
-  {href: '/guitar-trainer', img: guitar, alt: 'View guitar trainer', rotate: -0.3, scale: 0.95},
-  {href: '/rc-car', img: rc, alt: 'View RC car', rotate: 0.6, scale: 0.93},
+  {href: '/shadow-synth', img: shadow, alt: 'View Shadow Synth', rotate: -1, scale: 1.05, tape: 'diag'},
+  {href: '/canvas', img: canvas, alt: 'View the Canvas', rotate: 1.2, scale: 1, tape: 'corners'},
+  {href: '/guitar-trainer', img: guitar, alt: 'View guitar trainer', rotate: -0.3, scale: 0.95, tape: 'diag'},
+  {href: '/rc-car', img: rc, alt: 'View RC car', rotate: 0.6, scale: 0.93, tape: 'top'},
 ];
 ---
 
@@ -17,6 +18,25 @@ const posters = [
   {posters.map((p) => (
     <a class="poster" href={p.href} style={`--rot: ${p.rotate}deg; --scale: ${p.scale};`}>
       <Image src={p.img} alt={p.alt} />
+      
+      {p.tape === 'top' && (
+        <Tape top="-14px" left="50%" width={110} />
+      )}
+
+      {p.tape === 'corners' && (
+        <>
+          <Tape top="-8px" left="4%"  width={80} rotate={-35} />
+          <Tape top="-8px" left="96%" width={80} rotate={35} />
+        </>
+      )}
+
+      {p.tape === 'diag' && (
+        <>
+          <Tape top="-8px" left="4%"  width={80} rotate={-35} />
+          <Tape bottom="-8px" left="96%" width={80} rotate={-35} />
+        </>
+      )}
+
     </a>
   ))}
 </main>
@@ -36,7 +56,6 @@ const posters = [
       grid-template-columns: repeat(2, 1fr);
       column-gap: 1.5rem;
       row-gap: 1rem;
-      max-width: 900px;
     }
   }
 

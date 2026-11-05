@@ -1,23 +1,33 @@
 ---
 import { Image } from 'astro:assets';
-import myface from '../assets/emil/me.jpg';
+import myface from '../assets/emil/polaroid.webp';
+import Tape from './Tape.astro';
 ---
 
 <section class="about-me">
   <div class= "about-me-bg">
+    <Tape top="-14px" left="4%" rotate="-20" width={110} />
+    <Tape top="-14px" left="96%" rotate="15" width={110} />
   <div class="container">
+
+    <div class="polaroid-wrap">
+      <Tape top="-25px" left="50%" width={70} rotate={-6} />
+      <Image 
+        src={myface} 
+        alt="Picture of Emil Brunsnes" 
+        class="profile-image" 
+      />
+
+    </div>
     <div class = "text">
       <h1>About me</h1>
       <p>
         I am a Year 2 design engineering student at Imperial College London, interested in combining technical engineering with designing for people. My favourite projects follow the whole thread of product development - from user research to prototyping.
       </p>
+      
     </div>
 
-    <Image 
-      src={myface} 
-      alt="Picture of Emil Brunsnes" 
-      class="profile-image" 
-    />
+    
   </div>
   </div>
 
@@ -60,24 +70,32 @@ import myface from '../assets/emil/me.jpg';
   }
 
   .profile-image {
-    width: 140px;
-    height: 140px;
-    object-fit: cover;
     display: block;
-    mix-blend-mode: multiply;
+    filter: drop-shadow(var(--shadow-near)) drop-shadow(var(--shadow-far));
+
+  }
+
+  .polaroid-wrap {
+    position: relative;            /* tape is positioned against the photo */
+    float: right;
+    margin: 0 -1rem 0.75rem 1.25rem;
+    transform: rotate(-3deg);
+  }
+
+  .polaroid-wrap :global(.profile-image) {
+    display: block;
+    width: 140px;
+    height: auto;
   }
 
   @media (min-width: 640px) {
-    .container {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 2rem;
-      align-items: center;
+      .container {
+      display: block;            /* was grid */
     }
 
-    .profile-image {
-      width: 120px;
-      height: auto;
+    .profile-image {             /* or .polaroid, whatever your Polaroid's class is */
+      float: right;
+      margin: -1rem 0rem 0.75rem 1.25rem;   /* the negative right margin lets it overhang the edge */
     }
   }
 

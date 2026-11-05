@@ -26,6 +26,7 @@ const {
     <div class="light" aria-hidden="true"></div>
     <div class="grain" aria-hidden="true"></div>
     <div class="black" aria-hidden="true"></div>
+    <div class="corner-light" aria-hidden="true"></div>
   </body>
 </html>
 
@@ -47,13 +48,17 @@ const {
     --shadow-near: 3px 4px 4px rgba(0, 0, 0, 0.35);    /* tight contact shadow */
     --shadow-far: 10px 16px 24px rgba(0, 0, 0, 0.4);   /* soft, further out */
     --neon-on: 2.4s;
-    --neon-cycle: 7s;
+    --neon-cycle: 12s;
+    --neon-delay: 0.5s;
   }
 
   body {
     margin: 0;
     position: relative;     /* overlays are positioned against the page */
     min-height: 100vh;
+    animation:
+    switchOn var(--neon-on) steps(1, end) var(--neon-delay) both,
+    stutter var(--neon-cycle) steps(1, end) calc(var(--neon-delay) + var(--neon-on)) infinite;
   }
 
     .shade,
@@ -84,6 +89,18 @@ const {
     mix-blend-mode: soft-light;   /* warms and brightens without washing out */
   }
 
+  .corner-light {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    background: radial-gradient(
+      ellipse 40vw 45vh at 100% 100%,
+      rgba(255, 170, 80, 0.3),
+    );
+    mix-blend-mode: soft-light;
+  }
+
   .grain {
     position: fixed;
     inset: 0;
@@ -99,7 +116,7 @@ const {
     inset: 0;
     pointer-events: none;
     z-index: 100;
-    background: rgb (5, 3, 2);
+    background: rgb(5, 3, 2);
     opacity: calc((1 - var(--lit)) * 0.9); /* 90% off when screen off*/
   }
 
@@ -126,15 +143,8 @@ const {
 /* Running: a small dip, then a noticeable burst near the end of each cycle */
   @keyframes stutter {
     0%, 40%           { --lit: 1; }
-    40.5%             { --lit: 0.5; }   /* quick dip */
+    40.5%             { --lit: 0.9; }   /* quick dip */
     41.5%             { --lit: 1; }
-
-    85%               { --lit: 0.1; }   /* burst starts */
-    85.6%             { --lit: 1; }
-    86.3%             { --lit: 0.05; }
-    87%               { --lit: 0.7; }
-    87.5%             { --lit: 0.1; }
-    88.5%, 100%       { --lit: 1; }     /* recovers */
   }
 
   @media (prefers-reduced-motion: reduce) {
