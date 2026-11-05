@@ -63,25 +63,24 @@ const posters = [
     position: relative;
     display: block;
     transform: rotate(var(--rot)) scale(var(--scale));
-
-    box-shadow: var(--shadow-near), var(--shadow-far);
+    filter: drop-shadow(var(--shadow-near)) drop-shadow(var(--shadow-far));
     transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), 
-                box-shadow 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+                filter 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
                 z-index 0s;
   }
 
   .poster:hover {
     transform: rotate(0) scale(calc(var(--scale) * 1.03)) translateY(-6px);
     z-index: 15;
-    box-shadow: 
-      0 4px 8px rgba(0, 0, 0, 0.15),
-      0 16px 32px rgba(0, 0, 0, 0.3),
-      0 28px 50px rgba(0, 0, 0, 0.35);
+    filter:
+      drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))
+      drop-shadow(0 24px 40px rgba(0, 0, 0, 0.4));;
   }
 
   .poster :global(img) {
     width: 100%;
     height: auto;
     display: block;
+    clip-path: inset(0.8%);   /* trims a thin strip off every edge */
   }
 </style>

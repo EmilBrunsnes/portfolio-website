@@ -50,10 +50,11 @@ import lit from '../assets/neon/lit.svg';
         content: '';
         position: absolute;
         inset: -40% -25%;
-        background: radial-gradient(ellipse, rgba(255, 63, 164, 0.2), transparent 80%);
+        background: radial-gradient(closest-side, rgba(255, 63, 164, 0.3), transparent);
         mix-blend-mode: screen;
         pointer-events: none;
         z-index: -1;
+        translate: -12% 5%;
     }
 
     .neon-sign :global(.lit),

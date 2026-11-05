@@ -90,14 +90,15 @@ const {
   }
 
   .corner-light {
-    position: fixed;
+    position: absolute;
     inset: 0;
     pointer-events: none;
     z-index: 100;
     background: radial-gradient(
-      ellipse 40vw 45vh at 100% 100%,
-      rgba(255, 170, 80, 0.3),
-    );
+    ellipse 150vw 150vh at 100% 100%,
+    rgb(255, 236, 215),
+    transparent 100%
+  );
     mix-blend-mode: soft-light;
   }
 

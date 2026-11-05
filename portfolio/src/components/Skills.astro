@@ -37,6 +37,23 @@ import Tape from './Tape.astro';
         font-size: small;
         filter: drop-shadow(var(--shadow-near)) drop-shadow(var(--shadow-far));
         font-family: 'Courier New', Courier, monospace;
+        position: sticky;   /* replaces position: relative; the tape still works */
+        top: 15vh;          /* how far from the top of the screen it stops */
+        transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+        /* grabbed off the wall */
+    .setlist.is-lifted {
+    transform: rotate(-1deg) translateY(-6px) scale(1.04);
+    filter:
+        drop-shadow(0 4px 6px rgba(0, 0, 0, 0.35))
+        drop-shadow(0 26px 32px rgba(0, 0, 0, 0.45));   /* further from the wall = bigger, softer shadow */
+    }
+
+    /* the tape stays on the wall when you pull it off */
+    .setlist.is-lifted :global(.tape) {
+        opacity: 0;
+        transition: opacity 0.2s;
     }
 
     .setlist ol {
@@ -48,3 +65,16 @@ import Tape from './Tape.astro';
         margin-bottom: 0.3rem;
     }
 </style>
+
+<script>
+  const setlist = document.querySelector('.setlist') as HTMLElement;
+  const stickyTop = parseFloat(getComputedStyle(setlist).top);   // the "top: 2rem" value
+
+  function check() {
+    const atStickyPoint = setlist.getBoundingClientRect().top <= stickyTop + 1;
+    setlist.classList.toggle('is-lifted', atStickyPoint && window.scrollY > 0);
+  }
+
+  window.addEventListener('scroll', check, { passive: true });
+  check();
+</script>

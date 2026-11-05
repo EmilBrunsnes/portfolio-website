@@ -107,6 +107,7 @@ import Tape from './Tape.astro';
     perspective: 800px;
     user-select: none;  
     touch-action: none; 
+    margin-top: -2px;
   }
 
   .tabs a {
@@ -250,6 +251,15 @@ import Tape from './Tape.astro';
   100% { transform: translate(0, 100vh) rotate(16deg) scale(.96);   opacity: 0; }
 }
 
+.tabs a.is-returning {
+  animation: tabReturn 0.5s ease-out;
+}
+
+@keyframes tabReturn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: none; }
+}
+
 .about-me-bg,
 .tabs a,
 .torn-stubs,
@@ -277,6 +287,7 @@ import Tape from './Tape.astro';
   let isDragging = false;
   let rafId = null;
   let stub = null;
+  let tornStub = null;
   let moved = 0;
 
   tab.draggable = false;
@@ -292,7 +303,8 @@ import Tape from './Tape.astro';
     tab.style.zIndex = '';
 
     if (!cancelled && moved < 5){  //genine click
-      stub = null;
+      tornStub = stub;
+      stub = null;  
       tab.style.transition = '';
       tab.style.transform = '';
       tab.classList.add('is-torn');
@@ -358,6 +370,7 @@ import Tape from './Tape.astro';
       
     if (deltaY > 75) {
       isDragging = false;
+      tornStub = stub;
       stub = null;
 
       if (rafId) cancelAnimationFrame(rafId);
@@ -377,8 +390,21 @@ import Tape from './Tape.astro';
   });
 
   tab.addEventListener('animationend', () => {
-  tab.style.visibility = 'hidden';
-  });
+  if (tab.classList.contains('is-torn')) {
+    // finished falling: hide it, then put a fresh one back after 5 seconds
+    tab.style.visibility = 'hidden';
+    setTimeout(() => {
+      tab.classList.remove('is-torn');
+      tab.style.visibility = '';
+      tornStub?.remove();
+      tornStub = null;
+      tab.classList.add('is-returning');
+    }, 1000);
+  } else {
+    // finished the return animation
+    tab.classList.remove('is-returning');
+  }
+});
 
   });
 
