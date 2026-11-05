@@ -1,0 +1,36 @@
+---
+import Layout from './Layout.astro';
+import { Image } from 'astro:assets';
+const { project, prev, next } = Astro.props;
+const p = project.data;
+---
+
+<Layout title={`${p.title} — Emil Brunsnes`} venue={false}>
+  <article class="feature">
+    <header class="opener">
+      <Image src={p.cover} alt={p.title} class="cover" />
+      <div>
+        <h1>{p.title}</h1>
+        <p class="tagline">{p.tagline}</p>
+        {p.highlight && <p class="highlight">{p.highlight}</p>}
+      </div>
+    </header>
+
+    <div class="body">
+      <slot />   <!-- the project's written content goes here -->
+    </div>
+
+    <footer class="credits">
+      <p><strong>Role:</strong> {p.role}</p>
+      {p.team && <p><strong>Team:</strong> {p.team}</p>}
+      {p.duration && <p><strong>Duration:</strong> {p.duration}</p>}
+      <p><strong>Tools:</strong> {p.tools.join(' · ')}</p>
+    </footer>
+
+    <nav class="page-turn">
+      <a href={`/${prev.id}`}>← {prev.data.title}</a>
+      <a href="/">back to the wall</a>
+      <a href={`/${next.id}`}>{next.data.title} →</a>
+    </nav>
+  </article>
+</Layout>

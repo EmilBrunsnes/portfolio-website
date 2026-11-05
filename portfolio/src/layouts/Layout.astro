@@ -9,6 +9,7 @@ const {
   description = "Design engineering student at Imperial College London" 
 } = Astro.props;
 
+const { title = "Emil Brunsnes", description = "...", venue = true } = Astro.props;
 ---
 
 <!doctype html>
@@ -20,13 +21,17 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
   </head>
-  <body>
+  <body class:list={[{ venue }]}>
     <slot />
-    <div class="shade" aria-hidden="true"></div>
-    <div class="light" aria-hidden="true"></div>
+    {venue && (
+      <>
+        <div class="shade" aria-hidden="true"></div>
+        <div class="light" aria-hidden="true"></div>
+        <div class="black" aria-hidden="true"></div>
+        <div class="corner-light" aria-hidden="true"></div>
+      </>
+    )}
     <div class="grain" aria-hidden="true"></div>
-    <div class="black" aria-hidden="true"></div>
-    <div class="corner-light" aria-hidden="true"></div>
   </body>
 </html>
 
@@ -52,7 +57,7 @@ const {
     --neon-delay: 0.5s;
   }
 
-  body {
+  body.venue {
     margin: 0;
     position: relative;     /* overlays are positioned against the page */
     min-height: 100vh;

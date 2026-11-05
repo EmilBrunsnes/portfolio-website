@@ -1,0 +1,7 @@
+---
+const { src, caption, poster } = Astro.props;
+---
+<figure>
+  <video src={src} poster={poster} autoplay muted loop playsinline controls></video>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
