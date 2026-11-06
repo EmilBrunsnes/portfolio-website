@@ -2,14 +2,10 @@
 interface Props {
   title?: string;
   description?: string;
+  venue?: boolean;
 }
 
-const { 
-  title = "Emil Brunsnes", 
-  description = "Design engineering student at Imperial College London" 
-} = Astro.props;
-
-const { title = "Emil Brunsnes", description = "...", venue = true } = Astro.props;
+const { title = "Emil Brunsnes", description = "Design engineering student at Imperial College London", venue = true } = Astro.props;
 ---
 
 <!doctype html>

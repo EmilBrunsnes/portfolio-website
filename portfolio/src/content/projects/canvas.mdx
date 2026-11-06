@@ -1,22 +1,101 @@
 ---
 title: The Canvas
-tagline: An interactive art wall that helps students switch off
+tagline: A collaborative pixel-art game that helps students switch off
 cover: ../../assets/posters/canvas.jpg
 order: 2
 year: 2026
 highlight: "A grade · tested with 10+ students"
-role: User research, electronics
-team: Team of 4
-duration: 10 weeks
-tools: [Fusion 360, 3D printing, Laser cutting, Arduino, Figma]
+role: Mechanical design lead, user research, digital prototype, video pitch
+team: Team of 5
+tools: [Fusion 360, 3D printing, Laser cutting, Pygame, Adobe Express]
+
+
 ---
 import Figure from '../../components/media/Figure.astro';
-import interviews from '../../assets/projects/canvas/interviews.jpg';
+import codesign from '../../assets/projects/canvas/Co-design 2.jpg';
+import render from '../../assets/projects/canvas/final render.png';
+import stickynotes from '../../assets/projects/canvas/stickynotes.jpg';
+import gif from '../../assets/projects/canvas/gif.mp4';
+import explodedRender from '../../assets/projects/canvas/exploded.png';
+import Video from '../../components/media/Video.astro';
 
-## The problem
-Imperial students told us exam season felt isolating...
+{/* To add an image, put it in src/assets/projects/canvas/, import it at the top, e.g.
+    import door from '../../assets/projects/canvas/door.jpg';
+    then replace the IMAGE comment with:
+    <Figure src={door} alt="What the photo shows" caption="Your handwritten-style caption" /> */}
 
-<Figure src={interviews} alt="Interviewing a student" caption="Week 2: 12 interviews in the library" />
+{/* OPENING (to write): 2–3 sentences saying what the Canvas is before the journey starts. */}
+The Canvas is a wall-sized collaborative artwork where each user can change up to 5 pixels, and earn more pixels by spending more time studying. It aims to reduce stress and encourage people to collaborate.
 
-## Process
-...
+## Choosing our direction
+
+Our initial observations focused on movement through campus, finding that people often struggle with doors around campus (61 of 111 people failed with one specific door). But we reached a dead end. In our first round of interviews, no one we talked to cared much about movement, so we decided to focus on the frustration and stress associated with moving through campus.
+
+{/* IMAGE: the door you observed */}
+
+## Focusing on stress
+
+I suggested that we use focus groups for our next round of research. This paid off: students were able to bounce ideas off each other, leading to our key finding that students struggle to separate work from relaxation. However, we got some repeated answers due to groupthink.
+
+{/* IMAGE: focus group or affinity map */}
+
+## What's on your mind?
+
+To get a picture of what students were thinking, a teammate and I stood on campus with sticky notes and a big cardboard board, and asked people to write what they were thinking. 40% of responses mentioned school and work.
+
+<Figure src={stickynotes} alt="Emil Brunsnes asking someone to write their thoughts on a sticky note" caption="15:43 Sherfield Walkway, Imperial College" />
+
+## Do students disconnect?
+
+We ran two rounds of observations in the campus library. In the first, 92 of the 513 people we observed were spending time on their phones, neither relaxing nor working.
+
+{/* IMAGE: library observation */}
+
+## Three ideas
+
+We came up with three ideas: a "portal" that let students communicate publicly across campuses, new press-to-exit buttons that made students vote on a funny topic to open doors, and a collaborative art game.
+
+{/* IMAGE: sketches of the three concepts */}
+
+## Codesign
+
+Some of my teammates and I ran codesign sessions with students. From these, we decided to focus on the collaborative art game, and gained the key insight that we should link the game to time spent studying.
+
+<Figure src={codesign} alt="A codesigning session" caption="Codesign session" />
+
+## Public low-fidelity prototyping
+
+First, we tried the prototype ourselves, and found that we should limit each person to 5 pixels a turn. To test the concept further, we printed out a sheet of grid paper and stood around on campus, encouraging students to fill in pixels. People engaged with the game and enjoyed it, and the 5-pixel limit curbed any vandalism.
+
+{/* IMAGE: the paper grid being filled in on campus */}
+
+## Prototyping
+
+I led the mechanical design for the project. An internal test between a joystick and individual buttons found that we preferred each pixel being its own button. My design placed an LED strip over multiplexed buttons within a frame. Using an LED strip allowed us to control the whole grid with only one data pin, and the buttons gave a satisfying, tactile click.
+
+<Figure src={explodedRender} alt="A 3D render of the prototype" caption="Render" />
+
+## Mistakes
+
+My core mistake was not considering assembly and manufacturing. While the idea worked fantastically in CAD, in practice it was fiddly and time-consuming to solder and assemble. This led to many of the buttons not working in the final prototype.
+
+
+## Digital prototyping
+
+We had the opportunity to test the idea en masse at the Great Exhibition Road Festival. I created a Pygame game that tested the core idea (though without the tactile element), and we confirmed that people, especially children, found the game fun.
+
+<Video src="/videos/canvas/hcdVideo.mp4" caption="Pygame demo at GERF" />
+
+## Final codesign
+
+Our final round of codesign suggested that we add a "drawing of the day" to imitate, which would help people collaborate and give the game direction. Our users also suggested a program that automatically moderates any obscene imagery.
+
+## Video pitch
+
+Our coursework ended with a video pitch. I used Adobe Express to plan and edit the video.
+
+<Video src="/videos/canvas/Demo.mp4" caption="Our video pitch" />
+
+## Summary
+
+Our project was a success: people enjoyed the Canvas and found it stress-relieving.
